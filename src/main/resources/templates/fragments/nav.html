@@ -1,0 +1,27 @@
+<html>
+	<div class="container" th:fragments="nav">
+	<nav class="navbar navbar-inverse">
+			<div class="container">
+				<div id="navbar" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-left">
+                        <li class="active"><a th:href="@{'/post'}">blog</a></li>
+                    </ul>
+					<ul class="nav navbar-nav">
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<!-- <li>
+						<form method="post" id="search" th:action="@{'/search'}" role="form">
+						<input type="text" name="search" />
+						</form>
+						</li> -->
+						<li class="active"><a th:href="@{'/author'}">About</a></li>
+						<div sec:authorize="isAuthenticated()">
+						<form th:action="@{/logout}" method="post">
+        				</form>
+        				</div>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</div>
+</html>
