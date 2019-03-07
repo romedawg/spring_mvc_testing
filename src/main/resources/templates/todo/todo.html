@@ -1,1 +1,28 @@
-todo page
+<html layout:decorate="~{index.html}">
+<body>
+<section layout:fragment="content">
+
+    <!--<div id="profile-logo" class="container">-->
+    <!--Commute page-->
+
+    <!--<div data-th-each="data: ${divy_data}">-->
+    <!--<div class="col-md-8">-->
+    <!--<p th:utext="${data}"></p>-->
+    <!--</div>-->
+
+    <!--</div>-->
+    <!--</div>-->
+
+    <div id="profile-logo" class="container">
+        <h2>todo page</h2>
+
+        <div class="col-md-8">
+            <p th:utext="${tasks}"></p>
+
+        </div>
+
+    </div>
+</section>
+</body>
+
+</html>

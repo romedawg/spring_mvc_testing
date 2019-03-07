@@ -1,11 +1,17 @@
-<html layout:decorator="index">
 <html layout:decorate="~{index.html}">
 <body>
 <section layout:fragment="content">
+<h2>albums</h2>
+</div>
+
 
     <div id="profile-logo" class="container">
-        <h2>ERROR</h2>
+        <h2>Album Page</h2>
 
+        <div class="col-md-8">
+            <p th:utext="${album}"></p>
+
+        </div>
 
     </div>
 </section>

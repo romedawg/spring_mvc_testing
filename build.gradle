@@ -30,4 +30,8 @@ dependencies {
 
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")
     compile("org.springframework.boot:spring-boot-devtools")
+    compile group: 'commons-io', name: 'commons-io', version: '2.6'
+    compile 'com.github.zhanhb:thymeleaf-layout-dialect:2.3.0'
+    compile("org.springframework:spring-jdbc")
+    compile("com.h2database:h2")
 }

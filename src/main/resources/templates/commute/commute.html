@@ -1,12 +1,28 @@
-<html layout:decorator="index">
-<div layout:fragment="content">
+<html layout:decorate="~{index.html}">
+    <body>
+    <section layout:fragment="content">
+
+    <!--<div id="profile-logo" class="container">-->
+        <!--Commute page-->
+
+        <!--<div data-th-each="data: ${divy_data}">-->
+            <!--<div class="col-md-8">-->
+                <!--<p th:utext="${data}"></p>-->
+            <!--</div>-->
+
+        <!--</div>-->
+  <!--</div>-->
 
     <div id="profile-logo" class="container">
         Commute page
 
-        <p class="content" th:utext="${divy_data}"></p>
+        <div class="col-md-8">
+        <p th:utext="${divy_data}"></p>
+
+        </div>
 
     </div>
-</div>
+    </section>
+    </body>
 
 </html>
