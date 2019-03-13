@@ -1,9 +1,16 @@
 package com.romedawg.rome.Domain;
 
+import org.springframework.context.annotation.Primary;
+
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
+@Table(name="task")
 public class Task {
 
+    @javax.persistence.Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private  long Id;
     private String summary;
     private String description;
@@ -13,6 +20,8 @@ public class Task {
     public enum Status {
         CREATED, ASSIGNED, CANCELED, COMPLETED
     }
+
+    protected Task(){}
 
     public Task(long Id, String summary, String description, Status status, int priority ){
         this.Id = Id;
@@ -24,10 +33,6 @@ public class Task {
 
     public long getId() {
         return Id;
-    }
-
-    public void setId() {
-        this.Id = Id;
     }
 
     public String getSummary() {
