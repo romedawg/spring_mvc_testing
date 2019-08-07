@@ -1,38 +1,46 @@
 package com.romedawg.rome.Domain;
 
-import org.springframework.context.annotation.Primary;
-
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 @Table(name="task")
 public class Task {
 
     @javax.persistence.Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private  long Id;
+//    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Integer id;
+    private String title;
     private String summary;
-    private String description;
-    private Status status;
     private int priority;
 
-    public enum Status {
-        CREATED, ASSIGNED, CANCELED, COMPLETED
-    }
+//    @ManyToOne(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+//    @JoinColumn(name="owner_id")
+//    private Owner owner;
 
     protected Task(){}
 
-    public Task(long Id, String summary, String description, Status status, int priority ){
-        this.Id = Id;
-        this.summary = summary;
-        this.description = description;
-        this.status = status;
+    public Task(Integer id, String title, String description, int priority ){
+        this.id = id;
+        this.title = title;
+        this.summary = description;
         this.priority = priority;
+//        this.owner = owner;
     }
 
-    public long getId() {
-        return Id;
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getSummary() {
@@ -43,22 +51,6 @@ public class Task {
         this.summary = summary;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
     public int getPriority() {
         return priority;
     }
@@ -67,9 +59,17 @@ public class Task {
         this.priority = priority;
     }
 
+//    public Owner getOwner() {
+//        return owner;
+//    }
+
+//    public void setOwner(Owner owner) {
+//        this.owner = owner;
+//    }
+
     @Override
     public String toString() {
-        return "Task [id=" + Id + ", summary=" + summary + ", description=" + description + ", status=" + status
+        return "Task [id=" + id + ", title=" + title + ", summary=" + summary
                 + ", priority=" + priority + "]";
     }
 }

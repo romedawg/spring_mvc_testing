@@ -2,7 +2,11 @@ package com.romedawg.rome.controller;
 
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
+import com.romedawg.rome.Domain.Owner;
 import com.romedawg.rome.Domain.Task;
+import com.romedawg.rome.Repositories.OwnerRepository;
+import com.romedawg.rome.Repositories.TaskRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,37 +20,30 @@ import java.util.List;
 @Controller
 public class PersonalController {
 
+    @Autowired
+    private TaskRepository taskRepository;
+    private OwnerRepository ownerRepository;
+
     @RequestMapping("/rome")
     public String todo(Model model){
         List<Task> my_list = new ArrayList<Task>();
 
-        my_list.add(new Task(1, "Task1", "First task in the list", Task.Status.CREATED, 10));
+//        my_list.add(new Task(2,"Task1", "First task in the list", 10, ownerRepository.findById(1)));
+//        my_list.add(new Task(3, "first task", "just getting started,", 5));
 
-        Gson gson = new Gson();
-        Type type = new TypeToken<List<Task>>() {}.getType();
-        String json = gson.toJson(my_list, type);
-        JsonParser json_parser = new JsonParser();
-        JsonElement json_element = json_parser.parse(json).getAsJsonObject();
-        JsonArray tt = json_element.getAsJsonArray();
+        Task task1 = new Task(3, "first task", "just getting started,", 5);
 
+        taskRepository.save(task1);
 
-//        String id;
-//        String summary = "";
-//        String descrption = "";
-//        for (JsonElement je : tt){
-//            JsonObject jo = je.getAsJsonObject();
-//            id = je.get("Id").getAsString();
-//            summary = je.get("summary").getAsString();
-//        }
+        Owner owner = new Owner("igby");
+        ownerRepository.save(owner);
+//        System.out.printf("%s", bb.indexOf(0));
 
 
-        List<Task> fromJson = gson.fromJson(json, type);
-        for (Task task : fromJson) {
-            System.out.println(task);
-            System.out.println(tt.getClass().getName());
-        }
+        List bb = taskRepository.findTaskById(1);
+        System.out.printf("%s", bb.indexOf(0));
 
-        model.addAttribute("tasks", tt.toString());
+        model.addAttribute("tasks", bb.toString());
         return "todo/todo";}
 
 }

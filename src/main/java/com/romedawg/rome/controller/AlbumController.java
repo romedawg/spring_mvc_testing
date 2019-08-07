@@ -2,11 +2,14 @@ package com.romedawg.rome.controller;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.romedawg.rome.Repositories.TaskRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Date;
+import java.util.List;
 
 @Controller
 public class AlbumController {
@@ -28,14 +31,13 @@ public class AlbumController {
         JsonObject json_object2 = new JsonObject();
         json_object2.addProperty("id", 2);
         json_object2.addProperty("album", "Diary of a Madman");
-        json_object2.addProperty("artist", "Ozzy Ozborne");
+        json_object2.addProperty("artist", "Ozzy Osborne");
 
         json_array.add(json_object);
         json_array.add(json_object2);
         json.add("AlbumList", json_array);
 
         html_message = json.toString();
-
 
         String albums2 = "test";
 
