@@ -1,47 +1,65 @@
 package com.romedawg.rome.controller;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.romedawg.rome.Repositories.TaskRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.romedawg.rome.Domain.Catalog;
+import com.romedawg.rome.Repositories.CatalogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.io.File;
 import java.util.Date;
-import java.util.List;
 
 @Controller
 public class AlbumController {
 
+    @Autowired
+    CatalogRepository catalogRepository;
+
     @RequestMapping("/albums")
     public String albums(Model model){
 
+
         Date now = new Date();
 
-        String html_message;
-        JsonObject json = new JsonObject();
-        json.addProperty("Timestamp", now.toString());
-        JsonArray json_array = new JsonArray();
-        JsonObject json_object = new JsonObject();
-        json_object.addProperty("id", 1);
-        json_object.addProperty("album", "Go Tell Fire to the Mountain");
-        json_object.addProperty("artist", "Wu Lyf");
+        ObjectMapper mapper = new ObjectMapper();
 
-        JsonObject json_object2 = new JsonObject();
-        json_object2.addProperty("id", 2);
-        json_object2.addProperty("album", "Diary of a Madman");
-        json_object2.addProperty("artist", "Ozzy Osborne");
+        Catalog catalog = new Catalog();
+        try {
+            // File /tmp/test.json = {"artist":"Ozzy Osborne","album":"Diary of a Madman"}
+            catalog = mapper.readValue(new File("/tmp/test.json"), Catalog.class);
+            System.out.println(catalog);
+            catalogRepository.save(catalog);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
 
-        json_array.add(json_object);
-        json_array.add(json_object2);
-        json.add("AlbumList", json_array);
+//        // java object to Json doc
+//        Catalog catalog = createAlbum("Wu Lyf", "Go Tell Fire to the Mountain");
 
-        html_message = json.toString();
+//        try {
+//            mapper.writeValue(new File("/tmp/test.json"), catalog);
+//            String jsonString = mapper.writeValueAsString(catalog);
+//            System.out.println(jsonString);
+//            String jsonInString2 = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(catalog);
+//            System.out.println(jsonInString2);
+//        } catch (Exception e){
+//            e.printStackTrace();
+//        }
 
-        String albums2 = "test";
-
-        model.addAttribute("album", html_message.matches("Wu Lyf"));
+        model.addAttribute("album", catalog.toString());
         return "music/album";
+    }
+
+    public Catalog createAlbum(String artist, String album){
+        Catalog catalog = new Catalog();
+        catalog.setArtist(artist);
+        catalog.setAlbum(album);
+//        catalog.setId(1);
+        catalogRepository.save(catalog);
+        return catalog;
     }
 }

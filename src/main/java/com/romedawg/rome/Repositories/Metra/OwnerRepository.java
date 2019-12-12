@@ -1,4 +1,4 @@
-package com.romedawg.rome.Repositories;
+package com.romedawg.rome.Repositories.Metra;
 
 import com.romedawg.rome.Domain.Owner;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -24,17 +24,47 @@ databaseChangeLog:
         tableName: station
         columns:
         - column:
+            name: id
+            type: int
+            autoIncrement: true
+        - column:
             name: station_id
             type: int
-            autoIncrement: false
-            constraints:
-              primaryKey: true
-              nullable: false
+#            autoIncrement: false
+#            constraints:
+#              primaryKey: true
         - column:
-            name: external_id
-            type: varchar(50)
+            name: num_bikes_available
+            type: int
         - column:
-            name: short_name
+            name: num_bikes_disabled
+            type: int
+        - column:
+            name: num_ebikes_available
+            type: int
+        - column:
+            name: num_docks_available
+            type: int
+        - column:
+            name: num_docks_disabled
+            type: int
+        - column:
+            name: is_installed
+            type: int
+        - column:
+            name: is_renting
+            type: int
+        - column:
+            name: is_returning
+            type: int
+        - column:
+            name: last_reported
+            type: int
+        - column:
+            name: eightd_has_available_keys
+            type: int
+        - column:
+            name: eightd_active_station_services
             type: varchar(50)
 - changeSet:
     id: 1
@@ -93,3 +123,148 @@ databaseChangeLog:
     changes:
       - dbms: h2, oracle
       - sql: insert into task (id, title, summary, priority, owner_id) values (1, 'first', 'test summary', 5, 1)
+- changeSet:
+    id: 6
+    author: rome
+    changes:
+      - createTable:
+          tableName: catalog
+          columns:
+            - column:
+                name: id
+                type: int
+                autoIncrement: true
+                constraints:
+                  primaryKey: true
+                  nullable: false
+            - column:
+                name: artist
+                type: varchar(50)
+            - column:
+                name: album
+                type: varchar(50)
+- changeSet:
+    id: 7
+    author: rome
+    changes:
+      - createTable:
+          tableName: route
+          columns:
+            - column:
+                name: id
+                type: int
+                autoIncrement: true
+                constraints:
+                  primaryKey: true
+                  nullable: false
+            - column:
+                name: route_id
+                type: varchar(10)
+            - column:
+                name: route_short_name
+                type: varchar(10)
+            - column:
+                name: route_long_name
+                type: varchar(50)
+            - column:
+                name: route_desc
+                type: varchar(50)
+            - column:
+                name: agency_id
+                type: varchar(20)
+            - column:
+                name: route_type
+                type: int
+            - column:
+                name: route_color
+                type: varchar(10)
+            - column:
+                name: route_text_color
+                type: varchar(10)
+            - column:
+                name: route_url
+                type: varchar(60)
+- changeSet:
+    id: 8
+    author: rome
+    changes:
+      - createTable:
+          tableName: trip
+          columns:
+            - column:
+                name: id
+                type: int
+                autoIncrement: true
+                constraints:
+                  primaryKey: true
+                  nullable: false
+            - column:
+                name: route_id
+                type: varchar(10)
+            - column:
+                name: service_id
+                type: varchar(10)
+            - column:
+                name: trip_id
+                type: varchar(20)
+            - column:
+                name: trip_headsign
+                type: varchar(100)
+            - column:
+                name: block_id
+                type: varchar(50)
+            - column:
+                name: shape_id
+                type: varchar(50)
+            - column:
+                name: direction_id
+                type: int
+- changeSet:
+    id: 9
+    author: rome
+    changes:
+      - createTable:
+          tableName: stop
+          columns:
+            - column:
+                name: id
+                type: int
+#                autoIncrement: true
+                constraints:
+                  primaryKey: true
+                  nullable: false
+            - column:
+                name: trip_id
+                type: varchar(50)
+            - column:
+                name: arrival_time
+                type: varchar(15)
+            - column:
+                name: departure_time
+                type: varchar(15)
+            - column:
+                name: stop_id
+                type: varchar(10)
+            - column:
+                name: stop_sequence
+                type: int
+            - column:
+                name: pickup_type
+                type: int
+            - column:
+                name: drop_off_type
+                type: int
+            - column:
+                name: center_boarding
+                type: int
+            - column:
+                name: south_boarding
+                type: int
+            - column:
+                name: bikes_allowed
+                type: int
+            - column:
+                name: notice
+                type: int
+
+

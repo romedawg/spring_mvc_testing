@@ -1,4 +1,4 @@
-package com.romedawg.rome.Domain;
+package com.romedawg.rome.Domain.Divy;
 
 public class StationServices {
 

@@ -1,8 +1,8 @@
-package com.romedawg.rome.Domain;
+package com.romedawg.rome.Domain.Divy;
 
-import java.lang.reflect.Array;
+import com.google.gson.JsonArray;
 
-public class Station {
+public class StationInformation {
 
     private Integer station_id;
     private String external_id;
@@ -10,29 +10,12 @@ public class Station {
     private String short_name;
     private Float lat;
     private Float lon;
-    private Array rental_method;
+    private JsonArray rental_method;
     private Integer capacity;
     private Boolean electric_bike_surcharge_waiver;
     private Boolean eightd_has_key_dispenser;
     private StationServices eightd_station_services;
     private Boolean has_kiosk;
-
-    public Station(Integer station_id, String external_id, String name, String short_name, Float lat, Float lon,
-                   Array rental_method, Integer capacity, Boolean electric_bike_surcharge_waiver,
-                   Boolean eightd_has_key_dispenser, StationServices eightd_station_services, Boolean has_kiosk) {
-        this.station_id = station_id;
-        this.external_id = external_id;
-        this.name = name;
-        this.short_name = short_name;
-        this.lat = lat;
-        this.lon = lon;
-        this.rental_method = rental_method;
-        this.capacity = capacity;
-        this.electric_bike_surcharge_waiver = electric_bike_surcharge_waiver;
-        this.eightd_has_key_dispenser = eightd_has_key_dispenser;
-        this.eightd_station_services = eightd_station_services;
-        this.has_kiosk = has_kiosk;
-    }
 
     public Integer getStation_id() {
         return station_id;
@@ -82,11 +65,11 @@ public class Station {
         this.lon = lon;
     }
 
-    public Array getRental_method() {
+    public JsonArray getRental_method() {
         return rental_method;
     }
 
-    public void setRental_method(Array rental_method) {
+    public void setRental_method(JsonArray rental_method) {
         this.rental_method = rental_method;
     }
 
@@ -130,9 +113,9 @@ public class Station {
         this.has_kiosk = has_kiosk;
     }
 
-    public String getSetter(String keyName){
-        return keyName.substring(0,-1).toUpperCase().toString();
-    }
+//    public String getSetter(Iterator iterator){
+//        return keyName.substring(0,-1).toUpperCase().toString();
+//    }
 }
 
 // Data Structure

@@ -1,17 +1,14 @@
 package com.romedawg.rome.controller;
 
-import com.google.gson.*;
-import com.google.gson.reflect.TypeToken;
 import com.romedawg.rome.Domain.Owner;
 import com.romedawg.rome.Domain.Task;
-import com.romedawg.rome.Repositories.OwnerRepository;
+import com.romedawg.rome.Repositories.Metra.OwnerRepository;
 import com.romedawg.rome.Repositories.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
