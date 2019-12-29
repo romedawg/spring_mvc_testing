@@ -3,7 +3,6 @@ package com.romedawg.rome.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.romedawg.rome.Domain.Metra.*;
 import com.romedawg.rome.Repositories.Metra.StopRepository;
-import com.romedawg.rome.Repositories.Metra.RoutesRepository;
 import com.romedawg.rome.Repositories.TripRepository;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.slf4j.Logger;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.ui.Model;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -42,21 +40,15 @@ public class MetraController {
     @RequestMapping("/metra")
     public String metra(Model model) throws IOException {
 
-        String tripUpdates = "https://gtfsapi.metrarail.com/gtfs/tripUpdates";
-        String routedata = "";
-
-        StringBuffer bufferTripUpdate = metraUrlData("https://gtfsapi.metrarail.com/gtfs/tripUpdates");
-
-        String stopData = "https://gtfsapi.metrarail.com/gtfs/schedule/stop_times/BNSF_BN1264_V1_C";
+        String stopData = "https://gtfsapi.metrarail.com/gtfs/schedule/stop_times";
         System.out.println("load ROUTES");
-        StringBuffer bufferStop = metraUrlData(stopData);
+        StringBuffer bufferStop = fetchMetraExternalData(stopData);
         System.out.println("load stops");
         loadBNSFStops(bufferStop);
 
-        Stop[] data = stopRepository.findStopsByTrip_id("BNSF_BN1264_V1_C");
-        model.addAttribute("divy_data", data.toString());
+//        Stop[] data = stopRepository.findStopsByTrip_id("BNSF_BN1264_V1_C");
+        model.addAttribute("divy_data", "data.toString()");
         return "metra/metra";
-
     }
 
 //    public void loadStopTestData() throws IOException{
@@ -83,8 +75,10 @@ public class MetraController {
 
     // Trips: load from metra URL
     public void loadTrips() throws IOException {
+//        String tripUpdates = "https://gtfsapi.metrarail.com/gtfs/tripUpdates";
+
         String tripData = "https://gtfsapi.metrarail.com/gtfs/schedule/trips";
-        StringBuffer tripBuffer = metraUrlData(tripData);
+        StringBuffer tripBuffer = fetchMetraExternalData(tripData);
         Trip[] trips = objectMapper.readValue(tripBuffer.toString(), Trip[].class);
 
         for (int x=0;x<trips.length;x++){
@@ -94,7 +88,7 @@ public class MetraController {
     }
 
     // Makes the URL request and returns it in a StringBuffer Object
-    public StringBuffer metraUrlData(String URL){
+    public StringBuffer fetchMetraExternalData(String URL){
         log.info(metraUrlUsername);
 
         String metraUpdates = URL;

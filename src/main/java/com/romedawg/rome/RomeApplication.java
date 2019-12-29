@@ -10,6 +10,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+
 @SpringBootApplication(scanBasePackages = { "com.romedawg" })
 @EnableJpaRepositories
 @EnableTransactionManagement
@@ -22,6 +25,13 @@ public class RomeApplication extends SpringBootServletInitializer {
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application){
 	    return application.sources(RomeApplication.class);
+    }
+
+    @Override
+    public void onStartup(ServletContext servletContext) throws ServletException {
+
+        servletContext.setInitParameter(
+                "spring.profiles.active", "prod");
     }
 
 }

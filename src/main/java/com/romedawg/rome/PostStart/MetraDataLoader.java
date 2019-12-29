@@ -17,7 +17,7 @@ public class MetraDataLoader {
 
     // Routes: this is from a file
     public void LoadRoutes() throws IOException {
-        Route[] routes= objectMapper.readValue(new File("/tmp/routes1.json"), Route[].class);
+        Route[] routes= objectMapper.readValue(new File("/Users/rrafacz/personal/rome/DataModels_Examples/routes.json"), Route[].class);
 
         for (int x=0;x<routes.length;x++){
             System.out.println(routes[x]);

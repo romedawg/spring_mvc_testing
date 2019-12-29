@@ -11,13 +11,3 @@
 {"route_id":"UP-NW","route_short_name":"UP-NW","route_long_name":"Union Pacific Northwest","route_desc":"","agency_id":"METRA","route_type":2,"route_color":"FFE600","route_text_color":0,"route_url":"https://metrarail.com/maps-schedules/train-lines/UP-NW"},
 {"route_id":"UP-W","route_short_name":"UP-W","route_long_name":"Union Pacific West","route_desc":"","agency_id":"METRA","route_type":2,"route_color":"FE8D81","route_text_color":0,"route_url":"https://metrarail.com/maps-schedules/train-lines/UP-W"}
 ]
-
-{"route_id":"BNSF",
-"route_short_name":"BNSF",
-"route_long_name":"BNSF Railway",
-"route_desc":"",
-"agency_id":"METRA",
-"route_type":2,
-"route_color":"29C233",
-"route_text_color":0,
-"route_url":"https://metrarail.com/maps-schedules/train-lines/BNSF"}

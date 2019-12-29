@@ -15,7 +15,7 @@ import javax.servlet.ServletRegistration;
 import javax.sql.DataSource;
 
 @Configuration
-@Profile("dev")
+@Profile("dev2")
 public class DevDataSourceConfig {
 
     @Bean
@@ -32,9 +32,9 @@ public class DevDataSourceConfig {
         return registration;
     }
 
-    @PostConstruct
-    public void postConstruct() {
-        System.out.println("Started after Spring boot application !");
-
-    }
+//    @PostConstruct
+//    public void postConstruct() {
+//        System.out.println("Started after Spring boot application !");
+//
+//    }
 }
