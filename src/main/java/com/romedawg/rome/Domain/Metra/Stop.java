@@ -58,7 +58,6 @@ public class Stop {
     /***
      * Builder Class
      */
-
     public static final class Builder{
         private String trip_id;
         private String arrival_time;

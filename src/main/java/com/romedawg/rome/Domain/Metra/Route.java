@@ -11,7 +11,7 @@ public class Route {
     @Column(name="id")
     private Long id;
 
-    @Column(name = "route_id")
+    @Column(name = "route_id", unique = true)
     private String route_id;
 
     @Column(name = "route_short_name")
