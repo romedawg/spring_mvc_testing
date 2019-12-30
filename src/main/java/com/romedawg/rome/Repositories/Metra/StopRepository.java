@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface StopRepository extends CrudRepository<Stop, Long> {
+public interface StopRepository extends JpaRepository<Stop, Long> {
 
 //    @Query(value = "SELECT s FROM Stop s WHERE s.trip_id = ?1")
     @Query(value = "SELECT s.arrival_time FROM Stop s where s.trip_id = ?1")

@@ -39,6 +39,8 @@ public class MetraController {
     @Autowired
     RoutesRepository routesRepository;
     TripRepository tripRepository;
+
+    @Autowired
     StopRepository stopRepository;
 
     ObjectMapper objectMapper = new ObjectMapper();
@@ -48,35 +50,41 @@ public class MetraController {
 
         String stopData = "https://gtfsapi.metrarail.com/gtfs/schedule/stop_times";
         System.out.println("load ROUTES");
-        StringBuffer bufferStop = fetchMetraExternalData(stopData);
-        System.out.println("load stops");
-//        loadBNSFStops(bufferStop);
         LoadRoutes();
+        System.out.println("Routes Loaded");
+
+
+        System.out.println("load stops");
+        loadBNSFStops();
 
 //        Stop[] data = stopRepository.findStopsByTrip_id("BNSF_BN1264_V1_C");
         model.addAttribute("divy_data", "data.toString()");
         return "metra/metra";
     }
 
-//    public void loadStopTestData() throws IOException{
-//        System.out.println("loading stop_data");
-//        Stop[] stop = objectMapper.readValue(new File("/Users/rrafacz/personal/rome/DataModels_Examples/stop_times.json"), Stop[].class);
-//        for (int n=0;n<stop.length;n++){
-//            System.out.println(stop[n]);
-//            stopRepository.save(stop[n]);
-//        }
-//    }
 
     // Need to load only BNSF trips ids for the stop
     // Query Routes table and return all BNSF* id's
     // make url request for each id
     // load each entry into the stops table
-    public void loadBNSFStops(StringBuffer data) throws IOException{
-        Stop[] stops = objectMapper.readValue(data.toString(), Stop[].class);
+    public void loadBNSFStops() throws IOException{
+        StringBuffer sb = fetchMetraExternalData("https://gtfsapi.metrarail.com/gtfs/schedule/stop_times");
+//        System.out.println("string buffer object is:");
+//        System.out.println(sb.toString());
+        Stop.Builder[] stops = objectMapper.readValue(sb.toString(), Stop.Builder[].class);
         for (int x=0;x<stops.length;x++){
-//            stops[x].setId(x);
-            System.out.println(stops[x]);
-            stopRepository.save(stops[x]);
+            System.out.println(stops[x].build().toString());
+            stopRepository.saveAndFlush(stops[x].build());
+        }
+    }
+
+    public void LoadRoutes() throws IOException {
+        StringBuffer sb = fetchMetraExternalData("https://gtfsapi.metrarail.com/gtfs/schedule/routes");
+        Route.Builder[] routes= objectMapper.readValue(sb.toString(), Route.Builder[].class);
+
+        for (int x=0;x<routes.length;x++){
+            System.out.println(routes[x].build().toString());
+            routesRepository.saveAndFlush(routes[x].build());
         }
     }
 
@@ -92,29 +100,6 @@ public class MetraController {
             System.out.println(trips[x]);
             tripRepository.save(trips[x]);
         }
-    }
-
-    public void LoadRoutes() throws IOException {
-        StringBuffer sB = fetchMetraExternalData("https://gtfsapi.metrarail.com/gtfs/schedule/routes");
-        Route.Builder[] routes= objectMapper.readValue(sB.toString(), Route.Builder[].class);
-//
-        for (int x=0;x<routes.length;x++){
-            System.out.println(routes[x].build().toString());
-            routesRepository.saveAndFlush(routes[x].build());
-        }
-
-//        Route route = new Route.Builder()
-//                .setRoute_id("BNSF")
-//                .setAgency_id(" w")
-//                .setRoute_color(" w")
-//                .setRoute_desc("w ")
-//                .setRoute_long_name(" w")
-//                .setRoute_short_name("w ")
-//                .setRoute_text_color(" w")
-//                .setRoute_type(1)
-//                .setRoute_url("w ")
-//                .build();
-//        routesRepository.save(route);
     }
 
     // Makes the URL request and returns it in a StringBuffer Object
