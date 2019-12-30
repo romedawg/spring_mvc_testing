@@ -266,3 +266,8 @@ databaseChangeLog:
                 type: int
 
 
+
+# -- Grants for 'rome'@'%'
+# CREATE USER IF NOT EXISTS 'rome'@'%';
+# ALTER USER 'rome'@'%' IDENTIFIED WITH 'mysql_native_password' AS '*3FC09C8418F7E74C13CC902E283ADD11E460967A' REQUIRE NONE PASSWORD EXPIRE DEFAULT ACCOUNT UNLOCK;
+# GRANT ALL PRIVILEGES ON *.* TO 'rome'@'%' WITH GRANT OPTION;

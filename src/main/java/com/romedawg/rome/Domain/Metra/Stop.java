@@ -1,15 +1,18 @@
 package com.romedawg.rome.Domain.Metra;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
+import java.util.UUID;
 
 @Entity
 @Table(name="stop")
 public class Stop {
 
     @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GenericGenerator(name = "native", strategy = "native")
+    private Long id;
 
     @Column(name = "trip_id")
     private String trip_id;
@@ -30,8 +33,8 @@ public class Stop {
     @Override
     public String toString() {
         return "Stop{" +
-                "id=" + id +
-                ", trip_id='" + trip_id + '\'' +
+                "id='" + id + '\'' +
+                "trip_id='" + trip_id + '\'' +
                 ", arrival_time='" + arrival_time + '\'' +
                 ", departure_time='" + departure_time + '\'' +
                 ", stop_id='" + stop_id + '\'' +
@@ -45,11 +48,7 @@ public class Stop {
                 '}';
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 

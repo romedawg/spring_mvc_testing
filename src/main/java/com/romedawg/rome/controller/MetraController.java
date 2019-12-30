@@ -2,9 +2,12 @@ package com.romedawg.rome.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.romedawg.rome.Domain.Metra.*;
+import com.romedawg.rome.Repositories.Metra.RoutesRepository;
 import com.romedawg.rome.Repositories.Metra.StopRepository;
 import com.romedawg.rome.Repositories.TripRepository;
 import org.apache.tomcat.util.codec.binary.Base64;
+import org.hibernate.id.UUIDGenerator;
+import org.hibernate.type.UUIDCharType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +18,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.ui.Model;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.UUID;
 
 @Controller
 @Component
@@ -32,7 +37,8 @@ public class MetraController {
     Logger log = LoggerFactory.getLogger(this.getClass().getName());
 
     @Autowired
-    private TripRepository tripRepository;
+    RoutesRepository routesRepository;
+    TripRepository tripRepository;
     StopRepository stopRepository;
 
     ObjectMapper objectMapper = new ObjectMapper();
@@ -44,7 +50,8 @@ public class MetraController {
         System.out.println("load ROUTES");
         StringBuffer bufferStop = fetchMetraExternalData(stopData);
         System.out.println("load stops");
-        loadBNSFStops(bufferStop);
+//        loadBNSFStops(bufferStop);
+        LoadRoutes();
 
 //        Stop[] data = stopRepository.findStopsByTrip_id("BNSF_BN1264_V1_C");
         model.addAttribute("divy_data", "data.toString()");
@@ -67,7 +74,7 @@ public class MetraController {
     public void loadBNSFStops(StringBuffer data) throws IOException{
         Stop[] stops = objectMapper.readValue(data.toString(), Stop[].class);
         for (int x=0;x<stops.length;x++){
-            stops[x].setId(x);
+//            stops[x].setId(x);
             System.out.println(stops[x]);
             stopRepository.save(stops[x]);
         }
@@ -85,6 +92,29 @@ public class MetraController {
             System.out.println(trips[x]);
             tripRepository.save(trips[x]);
         }
+    }
+
+    public void LoadRoutes() throws IOException {
+        StringBuffer sB = fetchMetraExternalData("https://gtfsapi.metrarail.com/gtfs/schedule/routes");
+        Route.Builder[] routes= objectMapper.readValue(sB.toString(), Route.Builder[].class);
+//
+        for (int x=0;x<routes.length;x++){
+            System.out.println(routes[x].build().toString());
+            routesRepository.saveAndFlush(routes[x].build());
+        }
+
+//        Route route = new Route.Builder()
+//                .setRoute_id("BNSF")
+//                .setAgency_id(" w")
+//                .setRoute_color(" w")
+//                .setRoute_desc("w ")
+//                .setRoute_long_name(" w")
+//                .setRoute_short_name("w ")
+//                .setRoute_text_color(" w")
+//                .setRoute_type(1)
+//                .setRoute_url("w ")
+//                .build();
+//        routesRepository.save(route);
     }
 
     // Makes the URL request and returns it in a StringBuffer Object

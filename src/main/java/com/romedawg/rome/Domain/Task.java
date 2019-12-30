@@ -6,8 +6,9 @@ import javax.persistence.*;
 @Table(name="task")
 public class Task {
 
-    @javax.persistence.Id
-//    @GeneratedValue(strategy= GenerationType.AUTO)
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Column(name="id")
     private Integer id;
     private String title;
     private String summary;
@@ -19,20 +20,17 @@ public class Task {
 
     protected Task(){}
 
-    public Task(Integer id, String title, String description, int priority ){
-        this.id = id;
+    public Task( String title, String description, int priority ){
+//        this.id = id;
         this.title = title;
         this.summary = description;
         this.priority = priority;
 //        this.owner = owner;
     }
 
+    @Transient
     public Integer getId() {
         return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getTitle() {

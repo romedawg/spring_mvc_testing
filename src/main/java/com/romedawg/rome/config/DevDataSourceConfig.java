@@ -15,7 +15,7 @@ import javax.servlet.ServletRegistration;
 import javax.sql.DataSource;
 
 @Configuration
-@Profile("dev2")
+@Profile("dev")
 public class DevDataSourceConfig {
 
     @Bean

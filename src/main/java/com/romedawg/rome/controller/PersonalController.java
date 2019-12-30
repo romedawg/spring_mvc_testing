@@ -28,7 +28,7 @@ public class PersonalController {
 //        my_list.add(new Task(2,"Task1", "First task in the list", 10, ownerRepository.findById(1)));
 //        my_list.add(new Task(3, "first task", "just getting started,", 5));
 
-        Task task1 = new Task(3, "first task", "just getting started,", 5);
+        Task task1 = new Task("first task", "just getting started,", 5);
 
         taskRepository.save(task1);
 
