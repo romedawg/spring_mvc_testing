@@ -2,7 +2,6 @@ package com.romedawg.rome.controller;
 
 import com.romedawg.rome.Domain.Owner;
 import com.romedawg.rome.Domain.Task;
-import com.romedawg.rome.Repositories.Metra.OwnerRepository;
 import com.romedawg.rome.Repositories.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,7 +18,6 @@ public class PersonalController {
 
     @Autowired
     private TaskRepository taskRepository;
-    private OwnerRepository ownerRepository;
 
     @RequestMapping("/rome")
     public String todo(Model model){
@@ -33,7 +31,6 @@ public class PersonalController {
         taskRepository.save(task1);
 
         Owner owner = new Owner("igby");
-        ownerRepository.save(owner);
 //        System.out.printf("%s", bb.indexOf(0));
 
 

@@ -27,12 +27,5 @@ public class RomeApplication extends SpringBootServletInitializer {
 	    return application.sources(RomeApplication.class);
     }
 
-    @Override
-    public void onStartup(ServletContext servletContext) throws ServletException {
-
-        servletContext.setInitParameter(
-                "spring.profiles.active", "prod");
-    }
-
 }
 

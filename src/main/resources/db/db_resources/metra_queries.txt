@@ -1,0 +1,31 @@
+
+# BNSF Hinsdale stop to Chicago Weekday
+select DISTINCT s.trip_id, s.arrival_time, s.stop_id from  metra.stop as s  JOIN  metra.trip as t on t.trip_id = s.trip_id  WHERE  s.stop_id='HINSDALE' AND t.direction_id=1 AND t.service_id='A1' GROUP BY s.arrival_time;
+# The Arrival time in CUS
+select DISTINCT s.trip_id, s.stop_id, s.arrival_time from metra.stop as s WHERE s.trip_id in
+(select DISTINCT s.trip_id from  metra.stop as s  JOIN  metra.trip as t on t.trip_id = s.trip_id  WHERE  s.stop_id='HINSDALE' AND t.direction_id=1 AND t.service_id='A1' GROUP BY s.arrival_time)
+AND stop_id='CUS'
+GROUP BY s.arrival_time;
+
+# BNSF Hinsdale stop to Chicago Weekends
+select DISTINCT s.trip_id, s.arrival_time, s.stop_id from  metra.stop as s  JOIN  metra.trip as t on t.trip_id = s.trip_id  WHERE  s.stop_id='HINSDALE' AND t.direction_id=1 AND (t.service_id='A2' or t.service_id='A3') GROUP BY s.arrival_time;
+
+# BNSF Hinsdale stop from Chicago Weekday
+select DISTINCT s.trip_id, s.arrival_time, s.stop_id from  metra.stop as s  JOIN  metra.trip as t on t.trip_id = s.trip_id  WHERE  s.stop_id='HINSDALE' AND t.direction_id=0 AND t.service_id='A1' GROUP BY s.arrival_time;
+
+# BNSF Hinsdale stop from Chicago Weekends
+select DISTINCT s.trip_id, s.arrival_time, s.stop_id from  metra.stop as s  JOIN  metra.trip as t on t.trip_id = s.trip_id  WHERE  s.stop_id='HINSDALE' AND t.direction_id=0 AND (t.service_id='A2' or t.service_id='A3') GROUP BY s.arrival_time;
+
+
+# Above get's the trip id's i care about..
+# now i need to use those id's to get the time to Union station(CUS) and show it departing on the way back.
+
+
+// ALL BNSF Stops
+// select * from stop where trip_id like 'BNSF%';
+
+// All Hinsdale Stops
+// select * from stop where trip_id like 'BNSF%' AND stop_id='HINSDALE';
+
+// Join stop.trip_id == trip.route_id
+// select s.trip_id, s.stop_id, s.arrival_time, t.direction_id from metra.stop as s LEFT JOIN  metra.trip as t on t.trip_id = s.trip_id;

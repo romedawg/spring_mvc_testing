@@ -20,10 +20,33 @@
 
         </div>
 
-        <div class="col-md-8">
-        <p th:utext="${divy_data}"></p>
-        <!--<p th:utext="${keySet}"></p>-->
+<!--        <div class="col-md-8">-->
+<!--        <p th:utext="${data}"></p>-->
+<!--        &lt;!&ndash;<p th:utext="${keySet}"></p>&ndash;&gt;-->
+<!--        </div>-->
 
+<!--        <div data-th-each="post: ${data}">-->
+
+            <div class="col-md-12">
+                <table>
+                    <thead>
+                        <tr>
+                            <th >ID</th>
+                            <th >arrival</th>
+                            <th >Stop</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="stop: ${data}">
+                            <td th:text="${stop.trip_id}"></td>
+                            <td th:text="${stop.arrival_time}"></td>
+
+<!--                            Shows an object. why? -->
+<!--                            <td th:text="${stop}" />-->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
     </div>
