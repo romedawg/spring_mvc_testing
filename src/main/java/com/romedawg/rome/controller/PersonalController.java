@@ -38,6 +38,14 @@ public class PersonalController {
         System.out.printf("%s", bb.indexOf(0));
 
         model.addAttribute("tasks", bb.toString());
-        return "todo/todo";}
+        return "todo/todo";
+    }
+
+
+
+    @RequestMapping("/blog")
+    public String blog(Model model) {
+        return "blog/blog";
+    }
 
 }

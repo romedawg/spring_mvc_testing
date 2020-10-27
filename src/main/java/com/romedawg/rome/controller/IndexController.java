@@ -9,8 +9,16 @@ import java.net.URL;
 @Controller
 public class IndexController {
 
-    @RequestMapping("/t")
+    @RequestMapping("/post")
     public String home(Model model){
+
+        String test_Data = "THIS IS AN EXAMPLE";
+        model.addAttribute("test", test_Data );
+        return "home";
+    }
+
+    @RequestMapping("/post2")
+    public String home2(Model model){
 
         String test_Data = "THIS IS AN EXAMPLE";
         model.addAttribute("test", test_Data );
