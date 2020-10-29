@@ -14,19 +14,19 @@ import javax.sql.DataSource;
 @Profile("dev")
 public class DevDataSourceConfig {
 
-    @Bean
-    public DataSource dataSource(){
-        return new EmbeddedDatabaseBuilder()
-                .setType(EmbeddedDatabaseType.H2)
-                .build();
-    }
-
-    @Bean
-    public ServletRegistrationBean h2servletRegistration(){
-        ServletRegistrationBean registration = new ServletRegistrationBean(new WebdavServlet());
-        registration.addUrlMappings("/h2-console");
-        return registration;
-    }
+//    @Bean
+//    public DataSource dataSource(){
+//        return new EmbeddedDatabaseBuilder()
+//                .setType(EmbeddedDatabaseType.H2)
+//                .build();
+//    }
+//
+//    @Bean
+//    public ServletRegistrationBean h2servletRegistration(){
+//        ServletRegistrationBean registration = new ServletRegistrationBean(new WebdavServlet());
+//        registration.addUrlMappings("/h2-console");
+//        return registration;
+//    }
 
 //    @PostConstruct
 //    public void postConstruct() {
