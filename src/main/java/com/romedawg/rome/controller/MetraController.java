@@ -13,8 +13,9 @@ import org.springframework.ui.Model;
 
 import java.util.List;
 
+
+//@Component - this goes one down and is part of the the postConstruct
 @Controller
-@Component
 public class MetraController {
     @Value("${METRA_URL_USERNAME}")
     private String metraUrlUsername;

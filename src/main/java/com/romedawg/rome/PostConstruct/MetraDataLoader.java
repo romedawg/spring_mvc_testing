@@ -30,7 +30,8 @@ import java.util.concurrent.Executors;
 
 // TODO run seperately in a thread.
 
-@Component
+// Turing this off so it does not load the data at boottime. Also turn on in MetraController
+//@Component
 public class MetraDataLoader {
 
     Logger log = LoggerFactory.getLogger(this.getClass().getName());
