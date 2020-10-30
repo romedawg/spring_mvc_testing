@@ -40,9 +40,7 @@
                         <tr th:each="stop: ${data}">
                             <td th:text="${stop.trip_id}"></td>
                             <td th:text="${stop.arrival_time}"></td>
-
-<!--                            Shows an object. why? -->
-<!--                            <td th:text="${stop}" />-->
+                            <td th:text="${stop.stop_id}"></td>
                         </tr>
                     </tbody>
                 </table>

@@ -122,5 +122,29 @@ databaseChangeLog:
             - column:
                 name: notice
                 type: int
+- changeSet:
+    id: 4
+    author: rome
+    changes:
+      - createTable:
+          tableName: user
+          columns:
+            - column:
+                name: id
+                type: int
+                autoIncrement: true
+                constraints:
+                  primaryKey: true
+            #                  nullable: false
+            - column:
+                name: user_name
+                type: varchar(50)
+            - column:
+                name: email
+                type: varchar(15)
+            - column:
+                name: password
+                type: varchar(200)
+
 
 

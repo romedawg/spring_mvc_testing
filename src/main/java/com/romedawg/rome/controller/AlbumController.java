@@ -22,7 +22,6 @@ public class AlbumController {
     @RequestMapping("/albums")
     public String albums(Model model){
 
-
         Date now = new Date();
 
         ObjectMapper mapper = new ObjectMapper();

@@ -70,7 +70,6 @@ public class CommuteController {
     @RequestMapping("/commute")
     public String commute(Model model) {
 
-
         log.info("executing commute mapping");
         GsonJsonParser gsonJsonParser = new GsonJsonParser();
 

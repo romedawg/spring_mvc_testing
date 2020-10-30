@@ -65,6 +65,7 @@ public class MetraDataLoader {
             public void run() {
                 try {
                     LoadRoutes();
+                    // TODO turn back on
                     loadTrips();
                     loadBNSFStops();
                 } catch (Exception e){
@@ -81,6 +82,8 @@ public class MetraDataLoader {
         }
     }
 
+    // Quick small set of data - should only be executed once
+    // Loads each Metra train route(i.e BNFS, etc..)
     public void LoadRoutes() throws IOException {
         StringBuffer sb = fetchMetraExternalData("https://gtfsapi.metrarail.com/gtfs/schedule/routes");
         Route.Builder[] newRoutes = objectMapper.readValue(sb.toString(), Route.Builder[].class);
@@ -91,14 +94,17 @@ public class MetraDataLoader {
         for (Route.Builder newroute:newRoutes){
             log.info(String.format("new url request, route id: %s", newroute.build().getRoute_id()));
             if (routesRepository.findRouteID(newroute.build().getRoute_id()) == ""){
-                log.info(String.format("%s does not exsit, adding it.", newroute.build().getRoute_id()));
+                log.debug(String.format("%s does not exist, adding it.", newroute.build().getRoute_id()));
             }
         }
-        log.info("metra routes loaded");
+        log.info("metra routes done loading");
 
     }
 
-    // Trips: load from metra URL
+    // Trips: These are Begining to end trip info
+    // I.E: Chicago to Union station and vice versa
+    // Should be loaded every 24 hours initially(unless delays occur, then should initiate.
+    // TODO if while trip interruption, load, sleep, and repeat.
     public void loadTrips() throws IOException {
         String tripData = "https://gtfsapi.metrarail.com/gtfs/schedule/trips";
         StringBuffer tripBuffer = fetchMetraExternalData(tripData);
@@ -126,10 +132,10 @@ public class MetraDataLoader {
         for (int x=0;x<newStopsData.length;x++){
             String tripID = newStopsData[x].build().getTrip_id();
             String arrivalTime = newStopsData[x].build().getArrival_time();
-            if (stopRepository.findTripID(tripID, arrivalTime) == null){
-                log.info(String.format("saving stop id with: %s arival time: %s", tripID.toString(), arrivalTime.toString()));
-                stopRepository.save(newStopsData[x].build());
-            }
+//            if (stopRepository.findTripID(tripID, arrivalTime) == null){
+//                log.info(String.format("saving stop id with: %s arrival time: %s", tripID.toString(), arrivalTime.toString()));
+//                stopRepository.save(newStopsData[x].build());
+//            }
             System.out.println(newStopsData[x].build().toString());
             stopRepository.saveAndFlush(newStopsData[x].build());
         }

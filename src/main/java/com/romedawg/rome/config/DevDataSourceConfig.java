@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
+import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 
 @Configuration
@@ -28,9 +29,8 @@ public class DevDataSourceConfig {
 //        return registration;
 //    }
 
-//    @PostConstruct
-//    public void postConstruct() {
-//        System.out.println("Started after Spring boot application !");
-//
-//    }
+    @PostConstruct
+    public void postConstruct() {
+        System.out.println("Started after Spring boot application !");
+    }
 }

@@ -13,8 +13,9 @@ import org.springframework.ui.Model;
 
 import java.util.List;
 
+// this is for postconstruct goes one down
+//@Component
 @Controller
-@Component
 public class MetraController {
     @Value("${METRA_URL_USERNAME}")
     private String metraUrlUsername;
@@ -32,7 +33,7 @@ public class MetraController {
         model.addAttribute("data", stopRepository.findHinsdaleStops());
 //        model.addAttribute("data", stopRepository.findAll());
 
-
         return "metra/metra";
     }
 }
+

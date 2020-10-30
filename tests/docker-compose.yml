@@ -1,50 +1,50 @@
 ---
 version: '2.2'
 networks:
-  test_network:
+  romedawg_test:
     driver: bridge
+services:
   mysql:
     image: "nexus.dev.norvax.net:8082/gohealth/percona-mysql-5.7"
     hostname: mysql
     container_name: mysql
-    domainname: norvax.test
+    domainname: romedawg.com
     networks:
-      norvax_test:
+      romedawg_test:
         aliases:
           - mysql
-          - mysql.norvax.test
+          - mysql.romedawg.com
     ports:
       - "3306:3306"
     user:
       root
     environment:
       MYSQL_SERVER_ID: 1
-      MYSQL_USER: rome
+      MYSQL_USER: root
       MYSQL_PASSWD: password
       MYSQL_ROOT_PASSWD: password
       MYSQL_HEALTHCHECK_PASSWD: 123456
-    volumes:
-      - ./test_data/mysql:/opt/mysql
-      - /Users/rrafacz/workspaces/kafka/test_data/mysql/mysql_restore/prep_mysql.sh:/usr/local/bin/docker-entrypoint.sh
-#      - /Users/rrafacz/workspaces/kafka/test_data/mysql:/op/mysql
-  romedawg:
-    image:
-  sut:
-    image: "nexus.dev.norvax.net:8082/gohealth/ubuntu"
-    hostname: sut
-    domainname: norvax.test
-    networks:
-      test_network:
-        aliases:
-          - sut
-          - sut.norvax.test
-    depends_on:
-      kafka-connect:
-        condition: service_healthy
-    ports:
-      - "57242:57242"
-    healthcheck:
-      disable: true
-    volumes:
-      - ./kafka-connect.test.sh:/tmp/run_kafka_tests.sh
-    entrypoint: /tmp/run_kafka_tests.sh
+#    volumes:
+#      - ./test_data/mysql:/opt/mysql
+# This is used to test my app..
+#  romedawg:
+#    image:
+#  sut:
+#    image: "nexus.dev.norvax.net:8082/gohealth/ubuntu"
+#    hostname: sut
+#    domainname: norvax.test
+#    networks:
+#      test_network:
+#        aliases:
+#          - sut
+#          - sut.norvax.test
+#    depends_on:
+#      kafka-connect:
+#        condition: service_healthy
+#    ports:
+#      - "57242:57242"
+#    healthcheck:
+#      disable: true
+#    volumes:
+#      - ./kafka-connect.test.sh:/tmp/run_kafka_tests.sh
+#    entrypoint: /tmp/run_kafka_tests.sh
